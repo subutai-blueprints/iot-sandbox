@@ -15,7 +15,8 @@
         - sudo
         - unzip
         - apt-transport-https
-        - mosquitto mosquitto-clients
+        - mosquitto
+        - mosquitto-clients
         - curl
 
     - name: Add InfluxData repo key
