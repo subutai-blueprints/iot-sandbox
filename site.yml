@@ -15,6 +15,7 @@
         - sudo
         - unzip
         - apt-transport-https
+        - python-requests
         - mosquitto
         - mosquitto-clients
         - curl
