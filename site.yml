@@ -30,7 +30,7 @@
     - name: Enable Grafana repository
       shell: echo "deb https://packagecloud.io/grafana/stable/debian/ stretch main" | tee /etc/apt/sources.list.d/grafana.list
 
-    - name: Install ELK Packages
+    - name: Install Packages
       apt:
         name: "{{ item }}"
         state: latest
@@ -81,7 +81,7 @@
         src: influx.yaml
         dest: /etc/grafana/provisioning/datasources/influx.yaml
 
-    - name: Enable ELK Services
+    - name: Enable Services
       systemd:
         name: "{{ item }}"
         enabled: yes
