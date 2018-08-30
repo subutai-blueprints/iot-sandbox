@@ -40,10 +40,11 @@
         "source-url": "https://github.com/happyaron/elk-blueprint/archive/master.zip",
         "ansible-playbook": "site.yml",
         "extra-vars": [
-            {
-                "key": "domain_name",
-                "value": "${domainName1}"
-            }
+            { "key": "domain_name", "value": "${domainName1}" },
+            { "key": "influxusername", "value": "${influxusername}" },
+            { "key": "influxpassword", "value": "${influxpassword}" },
+            { "key": "mqttusername", "value": "${mqttusername}" },
+            { "key": "mqttpassword", "value": "${mqttpassword}" }
         ],
         "groups": [
             {
@@ -55,6 +56,30 @@
         ]
     },
     "user-variables": {
+        "influxusername": {
+            "description": "Enter the InfluxDB user name",
+            "type": "string",
+            "default": "subutai",
+            "validation": "[a-zA-Z0-9]+"
+        },
+        "influxpassword": {
+            "description": "Enter the InfluxDB user password",
+            "type": "string",
+            "default": "subutai",
+            "validation": "[a-zA-Z0-9]+"
+        },
+        "mqttusername": {
+            "description": "Enter the MQTT user name",
+            "type": "string",
+            "default": "subutai",
+            "validation": "[a-zA-Z0-9]+"
+        },
+        "mqttpassword": {
+            "description": "Enter the MQTT user password",
+            "type": "string",
+            "default": "subutai",
+            "validation": "[a-zA-Z0-9]+"
+        },
         "environmentName": {
             "description": "Enter the environment name",
             "type": "string",
