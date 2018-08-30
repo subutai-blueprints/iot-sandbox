@@ -37,7 +37,7 @@
         }
     ],
     "ansible-configuration": {
-        "source-url": "https://github.com/happyaron/elk-blueprint/archive/master.zip",
+        "source-url": "https://github.com/happyaron/tick-blueprint/archive/master.zip",
         "ansible-playbook": "site.yml",
         "extra-vars": [
             { "key": "domain_name", "value": "${domainName1}" },
@@ -48,7 +48,7 @@
         ],
         "groups": [
             {
-                "name": "elk",
+                "name": "tick",
                 "hostnames": [
                     "${webContainerName}"
                 ]
