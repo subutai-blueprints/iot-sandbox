@@ -54,6 +54,16 @@
         - influxdb
         - grafana
 
+    - name: Start Services
+      service:
+        name: "{{ item }}"
+        enabled: yes
+        state: started
+      with_items:
+        - influxdb
+        - telegraf
+        - grafana-server
+
     - name: Create InfluxDB database
       influxdb_database:
         database_name: iot
@@ -94,8 +104,8 @@
         src: influx.yaml
         dest: /etc/grafana/provisioning/datasources/influx.yaml
 
-    - name: Enable Services
-      systemd:
+    - name: Restart Services
+      service:
         name: "{{ item }}"
         enabled: yes
         state: restarted
