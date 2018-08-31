@@ -22,14 +22,14 @@
         - wget
 
     - name: Get tools package
-      raw: rm -f /tmp/*.deb && cd /tmp && wget http://snapshot.debian.org/archive/debian/20160719T162150Z/pool/main/i/influxdb-python/python-influxdb_3.0.0-1~bpo8%2B1_all.deb
+      raw: rm -f /tmp/*.deb && cd /tmp && wget http://snapshot.debian.org/archive/debian/20180828T214102Z/pool/main/i/influxdb-python/python-influxdb_5.2.0-1_all.deb
 
     - name: Install local tools package
       apt:
         deb: /tmp/{{ item }}
         state: installed
       with_items:
-        - python-influxdb_3.0.0-1~bpo8+1_all.deb
+        - python-influxdb_5.2.0-1_all.deb
 
     - name: Add InfluxData repo key
       shell: curl -sL https://repos.influxdata.com/influxdb.key | apt-key add -
