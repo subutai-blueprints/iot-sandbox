@@ -50,6 +50,34 @@
         - influxdb
         - grafana
 
+    - name: Setup MQTT user
+      shell: mosquitto_passwd -c /etc/mosquitto/passwd "{{ mqttusername }}"
+
+    - name: Setup MQTT password
+      shell: mosquitto_passwd -b /etc/mosquitto/passwd "{{ mqttusername }}" "{{ mqttpassword }}"
+
+    - name: Setup MQTT security
+      shell: printf "allow_anonymous false\npassword_file /etc/mosquitto/passwd\n" | tee /etc/mosquitto/conf.d/default.conf
+
+    - name: Restart MQTT service
+      service:
+        name: mosquitto
+        enabled: yes
+        state: restarted
+
+    - name: Copy Telegraf configuration
+      copy: 
+        src: telegraf.conf
+        dest: /etc/telegraf/telegraf.conf
+
+    - name: Setup Telegraf
+      shell: sed -i 's/@INFLUXUSERNAME@/{{ influxusername }}/;s/@INFLUXPASSWORD@/{{ influxpassword }}/;s/@MQTTUSERNAME@/{{ mqttusername }}/;s/@MQTTPASSWORD@/{{ mqttpassword }}/;' /etc/telegraf/telegraf.conf
+
+    - name: Configure Grafana datasource
+      copy: 
+        src: influx.yaml
+        dest: /etc/grafana/provisioning/datasources/influx.yaml
+
     - name: Start Services
       service:
         name: "{{ item }}"
@@ -71,34 +99,6 @@
         user_password: "{{ influxpassword }}"
         admin: yes
         state: present
-
-    - name: Setup MQTT user
-      shell: mosquitto_passwd -c /etc/mosquitto/passwd "{{ mqttusername }}"
-
-    - name: Setup MQTT password
-      shell: mosquitto_passwd -b /etc/mosquitto/passwd "{{ mqttusername }}" "{{ mqttpassword }}"
-
-    - name: Setup MQTT security
-      shell: printf "allow_anonymous false\npassword_file /etc/mosquitto/passwd\n" | tee /etc/mosquitto/conf.d/default.conf
-
-    - name: Restart MQTT service
-      service:
-        name: mosquitto
-        enabled: yes
-        state: restarted
-
-    - name: Initialize Telegraf
-      shell: telegraf -sample-config -input-filter mqtt_consumer -output-filter influxdb > /etc/telegraf/telegraf.conf
-
-    - name: Copy Telegraf configuration
-      copy: 
-        src: telegraf.conf
-        dest: /etc/telegraf/telegraf.conf
-
-    - name: Copy Grafana datasource
-      copy: 
-        src: influx.yaml
-        dest: /etc/grafana/provisioning/datasources/influx.yaml
 
     - name: Restart Services
       service:
