@@ -50,11 +50,8 @@
         - influxdb
         - grafana
 
-    - name: Setup MQTT user
-      shell: mosquitto_passwd -c /etc/mosquitto/passwd "{{ mqttusername }}"
-
-    - name: Setup MQTT password
-      shell: mosquitto_passwd -b /etc/mosquitto/passwd "{{ mqttusername }}" "{{ mqttpassword }}"
+    - name: Setup MQTT user and password
+      shell: touch /etc/mosquitto/passwd && mosquitto_passwd -b /etc/mosquitto/passwd "{{ mqttusername }}" "{{ mqttpassword }}"
 
     - name: Setup MQTT security
       shell: printf "allow_anonymous false\npassword_file /etc/mosquitto/passwd\n" | tee /etc/mosquitto/conf.d/default.conf
