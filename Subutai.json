@@ -12,7 +12,7 @@
             "port-mapping": [
                 {
                     "protocol": "http",
-                    "domain": "${domainName1}",
+                    "domain": "${grafanaDomain}",
                     "internal-port": "3000",
                     "external-port": "80"
                 }
@@ -74,20 +74,8 @@
             "default": "tick",
             "validation": "[a-zA-Z0-9]+"
         },
-        "domainName1": {
+        "grafanaDomain": {
             "description": "Enter the domain name for Grafana dashboard",
-            "type": "domain",
-            "default": "change.the.domain",
-            "validation": "[a-zA-Z0-9]+"
-        },
-        "domainName2": {
-            "description": "Enter the domain name for MQTT",
-            "type": "domain",
-            "default": "change.the.domain",
-            "validation": "[a-zA-Z0-9]+"
-        },
-        "domainName3": {
-            "description": "Enter the domain name for InfluxDB",
             "type": "domain",
             "default": "change.the.domain",
             "validation": "[a-zA-Z0-9]+"
