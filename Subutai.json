@@ -15,18 +15,6 @@
                     "domain": "${domainName1}",
                     "internal-port": "3000",
                     "external-port": "80"
-                },
-                {
-                    "protocol": "tcp",
-                    "domain": "${domainName2}",
-                    "internal-port": "1883",
-                    "external-port": "1883"
-                },
-                {
-                    "protocol": "http",
-                    "domain": "${domainName3}",
-                    "internal-port": "8086",
-                    "external-port": "8086"
                 }
             ]
         }
