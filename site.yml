@@ -85,6 +85,9 @@
         - telegraf
         - grafana-server
 
+    - name: Setting Grafana password for admin user
+      shell: curl -X PUT -H "Content-Type: application/json" -d '{"oldPassword": "admin","newPassword": "{{ grafanapassword }}","confirmNew": "{{ grafanapassword }}"}' http://admin:admin@127.0.0.1:3000/api/user/password
+
     - name: Create InfluxDB database
       influxdb_database:
         database_name: iot
