@@ -28,7 +28,7 @@
         "source-url": "https://github.com/happyaron/tick-blueprint/archive/master.zip",
         "ansible-playbook": "site.yml",
         "extra-vars": [
-            { "key": "domain_name", "value": "${domainName1}" },
+            { "key": "domain_name", "value": "${grafanaDomain}" },
             { "key": "influxusername", "value": "${influxusername}" },
             { "key": "influxpassword", "value": "${influxpassword}" },
             { "key": "mqttusername", "value": "${mqttusername}" },
