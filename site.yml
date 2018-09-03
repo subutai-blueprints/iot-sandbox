@@ -1,0 +1,94 @@
+# Ansible Playbook for Subutai TICK blueprint
+---
+
+- hosts: all
+  gather_facts: false
+  remote_user: root
+  tasks: 
+    - name: Install tools
+      apt:
+        name: "{{ item }}"
+        state: latest
+        update_cache: yes
+        dpkg_options: force-confdef,force-confold,force-unsafe-io
+      with_items: 
+        - sudo
+        - unzip
+        - apt-transport-https
+        - mosquitto mosquitto-clients
+        - curl
+
+    - name: Add InfluxData repo key
+      shell: curl -sL https://repos.influxdata.com/influxdb.key | apt-key add -
+
+    - name: Add Grafana repo key
+      shell: curl https://packagecloud.io/gpg.key | apt-key add -
+
+    - name: Enable InfluxData repository
+      shell: echo "deb https://repos.influxdata.com/debian stretch stable" | tee /etc/apt/sources.list.d/influxdb.list
+
+    - name: Enable Grafana repository
+      shell: echo "deb https://packagecloud.io/grafana/stable/debian/ stretch main" | tee /etc/apt/sources.list.d/grafana.list
+
+    - name: Install ELK Packages
+      apt:
+        name: "{{ item }}"
+        state: latest
+        update_cache: yes
+        dpkg_options: force-confdef,force-confold,force-unsafe-io
+      with_items: 
+        - telegraf
+        - influxdb
+        - grafana
+
+    - name: Create InfluxDB database
+      influxdb_database:
+        database_name: iot
+        state: present
+
+    - name: Create InfluxDB user
+      influxdb_user:
+        user_name: "{{ influxusername }}"
+        user_password: "{{ influxpassword }}"
+        admin: yes
+        state: present
+
+    - name: Setup MQTT user
+      shell: mosquitto_passwd -c /etc/mosquitto/passwd "{{ mqttusername }}"
+
+    - name: Setup MQTT password
+      shell: mosquitto_passwd -b /etc/mosquitto/passwd "{{ mqttusername }}" "{{ mqttpassword }}"
+
+    - name: Setup MQTT security
+      shell: printf "allow_anonymous false\npassword_file /etc/mosquitto/passwd\n" | tee /etc/mosquitto/conf.d/default.conf
+
+    - name: Restart MQTT service
+      service:
+        name: mosquitto
+        enabled: yes
+        state: restarted
+
+    - name: Initialize Telegraf
+      shell: telegraf -sample-config -input-filter mqtt_consumer -output-filter influxdb > /etc/telegraf/telegraf.conf
+
+    - name: Copy Telegraf configuration
+      copy: 
+        src: telegraf.conf
+        dest: /etc/telegraf/telegraf.conf
+
+    - name: Copy Grafana datasource
+      copy: 
+        src: influx.yaml
+        dest: /etc/grafana/provisioning/datasources/influx.yaml
+
+    - name: Enable ELK Services
+      systemd:
+        name: "{{ item }}"
+        enabled: yes
+        state: restarted
+      with_items:
+        - influxdb
+        - telegraf
+        - grafana-server
+
+# vim: ts=2 et nowrap autoindent

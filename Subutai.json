@@ -1,0 +1,95 @@
+{
+    "name": "${environmentName}",
+    "description": "TICK",
+    "version": "6.x",
+    "author": "https://github.com/happyaron",
+    "containers": [
+        {
+            "hostname": "${webContainerName}",
+            "template": "debian-stretch",
+            "peer-criteria": "HTTP-GROUP",
+            "size": "${containerSize}",
+            "port-mapping": [
+                {
+                    "protocol": "http",
+                    "domain": "${domainName1}",
+                    "internal-port": "3000",
+                    "external-port": "80"
+                },
+                {
+                    "protocol": "tcp",
+                    "domain": "${domainName2}",
+                    "internal-port": "1883",
+                    "external-port": "1883"
+                },
+                {
+                    "protocol": "http",
+                    "domain": "${domainName3}",
+                    "internal-port": "8086",
+                    "external-port": "8086"
+                }
+            ]
+        }
+    ],
+    "peer-criteria": [
+        {
+            "name": "HTTP-GROUP"
+        }
+    ],
+    "ansible-configuration": {
+        "source-url": "https://github.com/happyaron/elk-blueprint/archive/master.zip",
+        "ansible-playbook": "site.yml",
+        "extra-vars": [
+            {
+                "key": "domain_name",
+                "value": "${domainName1}"
+            }
+        ],
+        "groups": [
+            {
+                "name": "elk",
+                "hostnames": [
+                    "${webContainerName}"
+                ]
+            }
+        ]
+    },
+    "user-variables": {
+        "environmentName": {
+            "description": "Enter the environment name",
+            "type": "string",
+            "default": "tick",
+            "validation": "[a-zA-Z0-9]+"
+        },
+        "domainName1": {
+            "description": "Enter the domain name for Grafana dashboard",
+            "type": "domain",
+            "default": "change.the.domain",
+            "validation": "[a-zA-Z0-9]+"
+        },
+        "domainName2": {
+            "description": "Enter the domain name for MQTT",
+            "type": "domain",
+            "default": "change.the.domain",
+            "validation": "[a-zA-Z0-9]+"
+        },
+        "domainName3": {
+            "description": "Enter the domain name for InfluxDB",
+            "type": "domain",
+            "default": "change.the.domain",
+            "validation": "[a-zA-Z0-9]+"
+        },
+        "webContainerName": {
+            "description": "Enter the container's hostname",
+            "type": "string",
+            "default": "tick",
+            "validation": "[a-zA-Z0-9]+"
+        },
+        "containerSize": {
+            "description": "Container Size",
+            "type": "enum",
+            "default": "LARGE",
+            "validation": "TINY,SMALL,MEDIUM,LARGE,HUGE"
+        }
+    }
+}
