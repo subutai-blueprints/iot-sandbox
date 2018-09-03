@@ -29,6 +29,7 @@
         "ansible-playbook": "site.yml",
         "extra-vars": [
             { "key": "domain_name", "value": "${grafanaDomain}" },
+            { "key": "grafanapassword", "value": "${grafanapassword}" },
             { "key": "influxusername", "value": "${influxusername}" },
             { "key": "influxpassword", "value": "${influxpassword}" },
             { "key": "mqttusername", "value": "${mqttusername}" },
@@ -72,6 +73,12 @@
             "description": "Enter the environment name",
             "type": "string",
             "default": "tick",
+            "validation": "[a-zA-Z0-9]+"
+        },
+        "grafanapassword": {
+            "description": "Enter the Grafana admin password",
+            "type": "string",
+            "default": "subutai",
             "validation": "[a-zA-Z0-9]+"
         },
         "grafanaDomain": {

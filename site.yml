@@ -56,12 +56,6 @@
     - name: Setup MQTT security
       shell: printf "allow_anonymous false\npassword_file /etc/mosquitto/passwd\n" | tee /etc/mosquitto/conf.d/default.conf
 
-    - name: Restart MQTT service
-      service:
-        name: mosquitto
-        enabled: yes
-        state: restarted
-
     - name: Copy Telegraf configuration
       copy: 
         src: telegraf.conf
@@ -81,9 +75,10 @@
         enabled: yes
         state: started
       with_items:
+        - grafana-server
+        - mosquitto
         - influxdb
         - telegraf
-        - grafana-server
 
     - name: Create InfluxDB database
       influxdb_database:
@@ -97,6 +92,18 @@
         admin: yes
         state: present
 
+    - name: Set up password for Grafana admin account
+      uri:
+        url: http://127.0.0.1:3000/api/user/password
+        method: PUT
+        body_format: json
+        user: admin
+        password: admin
+        force_basic_auth: yes
+        body: '{"oldPassword": "admin", "newPassword": "{{ grafanapassword }}", "confirmNew": "{{ grafanapassword }}"}'
+      retries: 3
+      delay: 10
+
     - name: Restart Services
       service:
         name: "{{ item }}"
@@ -106,5 +113,6 @@
         - influxdb
         - telegraf
         - grafana-server
+        - mosquitto
 
 # vim: ts=2 et nowrap autoindent
