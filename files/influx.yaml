@@ -4,7 +4,7 @@ datasources:
   - name: InfluxDB
     type: influxdb
     access: proxy
-    database: site
+    database: iot
     user: grafana
     password: grafana
     url: http://localhost:8086
