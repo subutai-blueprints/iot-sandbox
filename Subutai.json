@@ -1,7 +1,7 @@
 {
     "name": "${environmentName}",
     "description": "IoT Sandbox",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "author": "https://github.com/lbthomsen",
     "containers": [
         {
@@ -15,6 +15,12 @@
                     "domain": "${grafanaDomain}",
                     "internal-port": "3000",
                     "external-port": "80"
+                }, 
+                {
+                    "protocol": "tcp",
+                    "domain": "${mqttDomain}",
+                    "internal-port": "1883",
+                    "external-port": "1883"
                 }
             ]
         }
@@ -83,6 +89,12 @@
         },
         "grafanaDomain": {
             "description": "Enter the domain name for Grafana dashboard",
+            "type": "domain",
+            "default": "change.the.domain",
+            "validation": "[a-zA-Z0-9]+"
+        },
+        "mqttDomain": {
+            "description": "Enter the domain name for mqtt",
             "type": "domain",
             "default": "change.the.domain",
             "validation": "[a-zA-Z0-9]+"
