@@ -22,11 +22,6 @@
         name: telegraf
         state: restarted
 
-    - name: restart grafana-server
-      systemd: 
-        name: grafana-server
-        state: restarted
-
   tasks: 
 
     - name: Disable dpkg fsync
@@ -122,18 +117,23 @@
         dest: /etc/telegraf/telegraf.conf
       notify: restart telegraf
 
+    - name: Configure Grafana datasource
+      template: 
+        src: files/influx.yaml
+        dest: /etc/grafana/provisioning/datasources/influx.yaml
+
     - name: Make sure grafana is enabled
       systemd:
         name: grafana-server 
         enabled: yes
         masked: no
-        state: started
+        state: restarted      
 
-    - name: Configure Grafana datasource
-      template: 
-        src: files/influx.yaml
-        dest: /etc/grafana/provisioning/datasources/influx.yaml
-      notify: restart grafana-server
+    - name: Wait for grafana
+      wait_for:
+        port: 3000
+        state: started
+        delay: 10
 
     - name: Set up password for Grafana admin account
       uri:
@@ -145,6 +145,5 @@
         force_basic_auth: yes
         body: '{"oldPassword": "admin", "newPassword": "{{ grafanapassword }}", "confirmNew": "{{ grafanapassword }}"}'
       retries: 3
-      delay: 10
 
 # vim: ts=2 et nowrap autoindent
