@@ -1,8 +1,8 @@
 {
     "name": "${environmentName}",
     "description": "IoT Sandbox",
-    "version": "6.x",
-    "author": "https://github.com/subutai-blueprints",
+    "version": "0.2.0",
+    "author": "https://github.com/lbthomsen",
     "containers": [
         {
             "hostname": "${webContainerName}",
@@ -15,6 +15,12 @@
                     "domain": "${grafanaDomain}",
                     "internal-port": "3000",
                     "external-port": "80"
+                }, 
+                {
+                    "protocol": "tcp",
+                    "domain": "${mqttDomain}",
+                    "internal-port": "1883",
+                    "external-port": "1883"
                 }
             ]
         }
@@ -25,7 +31,7 @@
         }
     ],
     "ansible-configuration": {
-        "source-url": "https://github.com/subutai-blueprints/iot-sandbox/archive/master.zip",
+        "source-url": "https://github.com/lbthomsen/iot-sandbox/archive/master.zip",
         "ansible-playbook": "site.yml",
         "extra-vars": [
             { "key": "domain_name", "value": "${grafanaDomain}" },
@@ -83,6 +89,12 @@
         },
         "grafanaDomain": {
             "description": "Enter the domain name for Grafana dashboard",
+            "type": "domain",
+            "default": "change.the.domain",
+            "validation": "[a-zA-Z0-9]+"
+        },
+        "mqttDomain": {
+            "description": "Enter the domain name for mqtt",
             "type": "domain",
             "default": "change.the.domain",
             "validation": "[a-zA-Z0-9]+"
