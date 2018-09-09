@@ -5,114 +5,131 @@
   gather_facts: false
   remote_user: root
   tasks: 
-    - name: Install tools
+
+    - name: Disable dpkg fsync
+      shell: echo force-unsafe-io > /etc/dpkg/dpkg.cfg.d/unsafe-io
+      args: 
+        creates: /etc/dpkg/dpkg.cfg.d/unsafe-io
+
+    - name: Install dirmngr
       apt:
-        name: "{{ item }}"
-        state: latest
-        update_cache: yes
-        dpkg_options: force-confdef,force-confold,force-unsafe-io
-      with_items: 
-        - sudo
-        - unzip
-        - apt-transport-https
-        - python-requests
-        - mosquitto
-        - mosquitto-clients
-        - curl
-        - wget
-
-    - name: Get tools package
-      raw: rm -f /tmp/*.deb && cd /tmp && wget http://snapshot.debian.org/archive/debian/20180828T214102Z/pool/main/i/influxdb-python/python-influxdb_5.2.0-1_all.deb
-
-    - name: Install local tools package
-      shell: apt install -y /tmp/python-influxdb_5.2.0-1_all.deb
-
-    - name: Add InfluxData repo key
-      shell: curl -sL https://repos.influxdata.com/influxdb.key | apt-key add -
-
-    - name: Add Grafana repo key
-      shell: curl https://packagecloud.io/gpg.key | apt-key add -
-
-    - name: Enable InfluxData repository
-      shell: echo "deb https://repos.influxdata.com/debian stretch stable" | tee /etc/apt/sources.list.d/influxdb.list
-
-    - name: Enable Grafana repository
-      shell: echo "deb https://packagecloud.io/grafana/stable/debian/ stretch main" | tee /etc/apt/sources.list.d/grafana.list
-
-    - name: Install Packages
-      apt:
-        name: "{{ item }}"
-        state: latest
-        update_cache: yes
-        dpkg_options: force-confdef,force-confold,force-unsafe-io
-      with_items: 
-        - telegraf
-        - influxdb
-        - grafana
-
-    - name: Setup MQTT user and password
-      shell: touch /etc/mosquitto/passwd && mosquitto_passwd -b /etc/mosquitto/passwd "{{ mqttusername }}" "{{ mqttpassword }}"
-
-    - name: Setup MQTT security
-      shell: printf "allow_anonymous false\npassword_file /etc/mosquitto/passwd\n" | tee /etc/mosquitto/conf.d/default.conf
-
-    - name: Copy Telegraf configuration
-      copy: 
-        src: telegraf.conf
-        dest: /etc/telegraf/telegraf.conf
-
-    - name: Setup Telegraf
-      shell: sed -i 's/@INFLUXUSERNAME@/{{ influxusername }}/;s/@INFLUXPASSWORD@/{{ influxpassword }}/;s/@MQTTUSERNAME@/{{ mqttusername }}/;s/@MQTTPASSWORD@/{{ mqttpassword }}/;' /etc/telegraf/telegraf.conf
-
-    - name: Configure Grafana datasource
-      copy: 
-        src: influx.yaml
-        dest: /etc/grafana/provisioning/datasources/influx.yaml
-
-    - name: Start Services
-      service:
-        name: "{{ item }}"
-        enabled: yes
-        state: started
-      with_items:
-        - grafana-server
-        - mosquitto
-        - influxdb
-        - telegraf
-
-    - name: Create InfluxDB database
-      influxdb_database:
-        database_name: iot
+        name: dirmngr
         state: present
 
-    - name: Create InfluxDB user
-      influxdb_user:
-        user_name: "{{ influxusername }}"
-        user_password: "{{ influxpassword }}"
-        admin: yes
+    - name: Install apt-transport-https
+      apt:
+        name: apt-transport-https
         state: present
 
-    - name: Set up password for Grafana admin account
-      uri:
-        url: http://127.0.0.1:3000/api/user/password
-        method: PUT
-        body_format: json
-        user: admin
-        password: admin
-        force_basic_auth: yes
-        body: '{"oldPassword": "admin", "newPassword": "{{ grafanapassword }}", "confirmNew": "{{ grafanapassword }}"}'
-      retries: 3
-      delay: 10
 
-    - name: Restart Services
-      service:
-        name: "{{ item }}"
-        enabled: yes
-        state: restarted
-      with_items:
-        - influxdb
-        - telegraf
-        - grafana-server
-        - mosquitto
+    # - name: Install tools
+    #   apt:
+    #     name: "{{ item }}"
+    #     state: latest
+    #     update_cache: yes
+    #     dpkg_options: force-confdef,force-confold,force-unsafe-io
+    #   with_items: 
+    #     - sudo
+    #     - unzip
+    #     - apt-transport-https
+    #     - python-requests
+    #     - mosquitto
+    #     - mosquitto-clients
+    #     - curl
+    #     - wget
+
+    # - name: Get tools package
+    #   raw: rm -f /tmp/*.deb && cd /tmp && wget http://snapshot.debian.org/archive/debian/20180828T214102Z/pool/main/i/influxdb-python/python-influxdb_5.2.0-1_all.deb
+
+    # - name: Install local tools package
+    #   shell: apt install -y /tmp/python-influxdb_5.2.0-1_all.deb
+
+    # - name: Add InfluxData repo key
+    #   shell: curl -sL https://repos.influxdata.com/influxdb.key | apt-key add -
+
+    # - name: Add Grafana repo key
+    #   shell: curl https://packagecloud.io/gpg.key | apt-key add -
+
+    # - name: Enable InfluxData repository
+    #   shell: echo "deb https://repos.influxdata.com/debian stretch stable" | tee /etc/apt/sources.list.d/influxdb.list
+
+    # - name: Enable Grafana repository
+    #   shell: echo "deb https://packagecloud.io/grafana/stable/debian/ stretch main" | tee /etc/apt/sources.list.d/grafana.list
+
+    # - name: Install Packages
+    #   apt:
+    #     name: "{{ item }}"
+    #     state: latest
+    #     update_cache: yes
+    #     dpkg_options: force-confdef,force-confold,force-unsafe-io
+    #   with_items: 
+    #     - telegraf
+    #     - influxdb
+    #     - grafana
+
+    # - name: Setup MQTT user and password
+    #   shell: touch /etc/mosquitto/passwd && mosquitto_passwd -b /etc/mosquitto/passwd "{{ mqttusername }}" "{{ mqttpassword }}"
+
+    # - name: Setup MQTT security
+    #   shell: printf "allow_anonymous false\npassword_file /etc/mosquitto/passwd\n" | tee /etc/mosquitto/conf.d/default.conf
+
+    # - name: Copy Telegraf configuration
+    #   copy: 
+    #     src: telegraf.conf
+    #     dest: /etc/telegraf/telegraf.conf
+
+    # - name: Setup Telegraf
+    #   shell: sed -i 's/@INFLUXUSERNAME@/{{ influxusername }}/;s/@INFLUXPASSWORD@/{{ influxpassword }}/;s/@MQTTUSERNAME@/{{ mqttusername }}/;s/@MQTTPASSWORD@/{{ mqttpassword }}/;' /etc/telegraf/telegraf.conf
+
+    # - name: Configure Grafana datasource
+    #   copy: 
+    #     src: influx.yaml
+    #     dest: /etc/grafana/provisioning/datasources/influx.yaml
+
+    # - name: Start Services
+    #   service:
+    #     name: "{{ item }}"
+    #     enabled: yes
+    #     state: started
+    #   with_items:
+    #     - grafana-server
+    #     - mosquitto
+    #     - influxdb
+    #     - telegraf
+
+    # - name: Create InfluxDB database
+    #   influxdb_database:
+    #     database_name: iot
+    #     state: present
+
+    # - name: Create InfluxDB user
+    #   influxdb_user:
+    #     user_name: "{{ influxusername }}"
+    #     user_password: "{{ influxpassword }}"
+    #     admin: yes
+    #     state: present
+
+    # - name: Set up password for Grafana admin account
+    #   uri:
+    #     url: http://127.0.0.1:3000/api/user/password
+    #     method: PUT
+    #     body_format: json
+    #     user: admin
+    #     password: admin
+    #     force_basic_auth: yes
+    #     body: '{"oldPassword": "admin", "newPassword": "{{ grafanapassword }}", "confirmNew": "{{ grafanapassword }}"}'
+    #   retries: 3
+    #   delay: 10
+
+    # - name: Restart Services
+    #   service:
+    #     name: "{{ item }}"
+    #     enabled: yes
+    #     state: restarted
+    #   with_items:
+    #     - influxdb
+    #     - telegraf
+    #     - grafana-server
+    #     - mosquitto
 
 # vim: ts=2 et nowrap autoindent

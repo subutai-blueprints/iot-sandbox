@@ -1,8 +1,8 @@
 {
     "name": "${environmentName}",
     "description": "IoT Sandbox",
-    "version": "6.x",
-    "author": "https://github.com/subutai-blueprints",
+    "version": "0.1.0",
+    "author": "https://github.com/lbthomsen",
     "containers": [
         {
             "hostname": "${webContainerName}",
@@ -25,7 +25,7 @@
         }
     ],
     "ansible-configuration": {
-        "source-url": "https://github.com/subutai-blueprints/iot-sandbox/archive/master.zip",
+        "source-url": "https://github.com/lbthomsen/iot-sandbox/archive/master.zip",
         "ansible-playbook": "site.yml",
         "extra-vars": [
             { "key": "domain_name", "value": "${grafanaDomain}" },
