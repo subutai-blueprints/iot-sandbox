@@ -22,6 +22,11 @@
         name: telegraf
         state: restarted
 
+    - name: restart grafana-server
+      systemd:
+        name: grafana-server 
+        state: restarted 
+
   tasks: 
 
     - name: Disable dpkg fsync
@@ -117,10 +122,31 @@
         dest: /etc/telegraf/telegraf.conf
       notify: restart telegraf
 
+    - name: Create dashboards folder
+      file: 
+        path: /var/lib/grafana/dashboards/
+        state: directory
+        mode: 0755
+
+    - name: Copy dashboard configuration
+      template: 
+        src: files/iot-sandbox.json
+        dest: /var/lib/grafana/dashboards/iot-sandbox.json
+
     - name: Configure Grafana datasource
       template: 
         src: files/influx.yaml
         dest: /etc/grafana/provisioning/datasources/influx.yaml
+
+    - name: Remove old dashboard
+      file: 
+        path: /etc/grafana/provisioning/dashboards/sample.yaml
+        state: absent
+
+    - name: Install new dashboard
+      template: 
+        src: files/iot-dashboards.yaml
+        dest: /etc/grafana/provisioning/dashboards/iot-dashboards.yaml
 
     - name: Make sure grafana is enabled
       systemd:
