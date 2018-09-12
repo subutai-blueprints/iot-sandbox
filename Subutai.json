@@ -1,7 +1,7 @@
 {
     "name": "${environmentName}",
     "description": "IoT Sandbox",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "author": "https://github.com/subutai-blueprints",
     "containers": [
         {
@@ -46,35 +46,29 @@
         "mqttusername": {
             "description": "Enter the MQTT user name",
             "type": "string",
-            "default": "subutai",
+            "default": "iotdata",
             "validation": "[a-zA-Z0-9]+"
         },
         "mqttpassword": {
             "description": "Enter the MQTT user password",
             "type": "string",
-            "default": "subutai",
+            "default": "iotdata",
             "validation": "[a-zA-Z0-9]+"
         },
         "environmentName": {
             "description": "Enter the environment name",
             "type": "string",
-            "default": "iot",
+            "default": "iotsandbox",
             "validation": "[a-zA-Z0-9]+"
         },
         "grafanapassword": {
             "description": "Enter the Grafana admin password",
             "type": "string",
-            "default": "subutai",
+            "default": "yourpassword",
             "validation": "[a-zA-Z0-9]+"
         },
         "grafanaDomain": {
             "description": "Enter the domain name for Grafana dashboard",
-            "type": "domain",
-            "default": "change.the.domain",
-            "validation": "[a-zA-Z0-9]+"
-        },
-        "mqttDomain": {
-            "description": "Enter the domain name for mqtt",
             "type": "domain",
             "default": "change.the.domain",
             "validation": "[a-zA-Z0-9]+"
