@@ -30,8 +30,6 @@
         "extra-vars": [
             { "key": "domain_name", "value": "${grafanaDomain}" },
             { "key": "grafanapassword", "value": "${grafanapassword}" },
-            { "key": "influxusername", "value": "${influxusername}" },
-            { "key": "influxpassword", "value": "${influxpassword}" },
             { "key": "mqttusername", "value": "${mqttusername}" },
             { "key": "mqttpassword", "value": "${mqttpassword}" }
         ],
@@ -45,18 +43,6 @@
         ]
     },
     "user-variables": {
-        "influxusername": {
-            "description": "Enter the InfluxDB user name",
-            "type": "string",
-            "default": "subutai",
-            "validation": "[a-zA-Z0-9]+"
-        },
-        "influxpassword": {
-            "description": "Enter the InfluxDB user password",
-            "type": "string",
-            "default": "subutai",
-            "validation": "[a-zA-Z0-9]+"
-        },
         "mqttusername": {
             "description": "Enter the MQTT user name",
             "type": "string",

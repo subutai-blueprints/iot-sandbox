@@ -110,8 +110,8 @@
 
     - name: Create InfluxDB user
       influxdb_user:
-        user_name: "{{ influxusername }}"
-        user_password: "{{ influxpassword }}"
+        user_name: "sandbox"
+        user_password: "sandbox"
         admin: yes
         state: present
       notify: restart influxdb
