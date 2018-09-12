@@ -15,7 +15,7 @@
                     "domain": "${grafanaDomain}",
                     "internal-port": "3000",
                     "external-port": "80"
-                },
+                }
             ]
         }
     ],
