@@ -73,6 +73,6 @@ MQTT is listening on port 1883, so you will choose that one as the internal port
 
 ### 4. Start sending data!
 
-Now you can start sending data from whatever MQTT-enabled device or equipment you have. If you want to simulate it, please check [this wiki page](https://github.com/subutai-blueprints/iot-sandbox/wiki/Testing-this-BP) about it.
+Now you can start sending data from whatever MQTT-enabled device or equipment you have. If you want to send simulated data, please check [this wiki page](https://github.com/subutai-blueprints/iot-sandbox/wiki/Testing-this-BP) about how to use node-red to send random data.
 
 ![Populated dashboard](https://github.com/subutai-blueprints/iot-sandbox/raw/master/docs/BP-16.png)
