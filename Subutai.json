@@ -1,7 +1,7 @@
 {
     "name": "${environmentName}",
     "description": "IoT Sandbox",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "author": "https://github.com/subutai-blueprints",
     "containers": [
         {
@@ -15,13 +15,7 @@
                     "domain": "${grafanaDomain}",
                     "internal-port": "3000",
                     "external-port": "80"
-                }, 
-                {
-                    "protocol": "tcp",
-                    "domain": "${mqttDomain}",
-                    "internal-port": "1883",
-                    "external-port": "1883"
-                }
+                },
             ]
         }
     ],
