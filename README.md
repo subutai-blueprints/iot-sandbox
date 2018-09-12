@@ -10,7 +10,7 @@ Data can then be sent from IoT devices via [mqtt](https://en.wikipedia.org/wiki/
 
 ### 1. Run the Blueprint on Subutai
 
-![Set your Blueprint variables](/docs/BP02.png)
+![Set your Blueprint variables](https://github.com/subutai-blueprints/iot-sandbox/raw/master/docs/BP-02.png)
 
 ![Select a Peer](docs/BP03.png)
 
