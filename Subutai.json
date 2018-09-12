@@ -1,11 +1,11 @@
 {
     "name": "${environmentName}",
     "description": "IoT Sandbox",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "author": "https://github.com/subutai-blueprints",
     "containers": [
         {
-            "hostname": "${webContainerName}",
+            "hostname": "iot",
             "template": "debian-stretch",
             "peer-criteria": "HTTP-GROUP",
             "size": "${containerSize}",
@@ -35,9 +35,9 @@
         ],
         "groups": [
             {
-                "name": "tick",
+                "name": "iot",
                 "hostnames": [
-                    "${webContainerName}"
+                    "iot"
                 ]
             }
         ]
@@ -46,25 +46,25 @@
         "mqttusername": {
             "description": "Enter the MQTT user name",
             "type": "string",
-            "default": "subutai",
+            "default": "iotdata",
             "validation": "[a-zA-Z0-9]+"
         },
         "mqttpassword": {
             "description": "Enter the MQTT user password",
             "type": "string",
-            "default": "subutai",
+            "default": "iotdata",
             "validation": "[a-zA-Z0-9]+"
         },
         "environmentName": {
             "description": "Enter the environment name",
             "type": "string",
-            "default": "tick",
+            "default": "iotsandbox",
             "validation": "[a-zA-Z0-9]+"
         },
         "grafanapassword": {
             "description": "Enter the Grafana admin password",
             "type": "string",
-            "default": "subutai",
+            "default": "yourpassword",
             "validation": "[a-zA-Z0-9]+"
         },
         "grafanaDomain": {
@@ -73,22 +73,10 @@
             "default": "change.the.domain",
             "validation": "[a-zA-Z0-9]+"
         },
-        "mqttDomain": {
-            "description": "Enter the domain name for mqtt",
-            "type": "domain",
-            "default": "change.the.domain",
-            "validation": "[a-zA-Z0-9]+"
-        },
-        "webContainerName": {
-            "description": "Enter the container's hostname",
-            "type": "string",
-            "default": "tick",
-            "validation": "[a-zA-Z0-9]+"
-        },
         "containerSize": {
             "description": "Container Size",
             "type": "enum",
-            "default": "LARGE",
+            "default": "MEDIUM",
             "validation": "TINY,SMALL,MEDIUM,LARGE,HUGE"
         }
     }
