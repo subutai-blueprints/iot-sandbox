@@ -35,7 +35,7 @@
         ],
         "groups": [
             {
-                "name": "tick",
+                "name": "iot",
                 "hostnames": [
                     "${webContainerName}"
                 ]
@@ -58,7 +58,7 @@
         "environmentName": {
             "description": "Enter the environment name",
             "type": "string",
-            "default": "tick",
+            "default": "iot",
             "validation": "[a-zA-Z0-9]+"
         },
         "grafanapassword": {
@@ -82,7 +82,7 @@
         "webContainerName": {
             "description": "Enter the container's hostname",
             "type": "string",
-            "default": "tick",
+            "default": "iot",
             "validation": "[a-zA-Z0-9]+"
         },
         "containerSize": {
