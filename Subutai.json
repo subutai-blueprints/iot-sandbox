@@ -5,7 +5,7 @@
     "author": "https://github.com/subutai-blueprints",
     "containers": [
         {
-            "hostname": "${webContainerName}",
+            "hostname": "iot",
             "template": "debian-stretch",
             "peer-criteria": "HTTP-GROUP",
             "size": "${containerSize}",
@@ -37,7 +37,7 @@
             {
                 "name": "iot",
                 "hostnames": [
-                    "${webContainerName}"
+                    "iot"
                 ]
             }
         ]
@@ -79,16 +79,10 @@
             "default": "change.the.domain",
             "validation": "[a-zA-Z0-9]+"
         },
-        "webContainerName": {
-            "description": "Enter the container's hostname",
-            "type": "string",
-            "default": "iot",
-            "validation": "[a-zA-Z0-9]+"
-        },
         "containerSize": {
             "description": "Container Size",
             "type": "enum",
-            "default": "LARGE",
+            "default": "MEDIUM",
             "validation": "TINY,SMALL,MEDIUM,LARGE,HUGE"
         }
     }
