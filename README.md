@@ -12,29 +12,29 @@ Data can then be sent from IoT devices via [mqtt](https://en.wikipedia.org/wiki/
 
 ![Set your Blueprint variables](https://github.com/subutai-blueprints/iot-sandbox/raw/master/docs/BP-02.png)
 
-![Select a Peer](docs/BP03.png)
+![Select a Peer](https://github.com/subutai-blueprints/iot-sandbox/raw/master/docs/BP03.png)
 
-![Check the exposed port](docs/BP04.png)
+![Check the exposed port](https://github.com/subutai-blueprints/iot-sandbox/raw/master/docs/BP04.png)
 
-![Build the Environment](docs/BP05.png)
+![Build the Environment](https://github.com/subutai-blueprints/iot-sandbox/raw/master/docs/BP05.png)
 
-![Wait some minutes](docs/BP06.png)
+![Wait some minutes](https://github.com/subutai-blueprints/iot-sandbox/raw/master/docs/BP06.png)
 
-![Your environment is ready!](docs/BP07.png)
+![Your environment is ready!](https://github.com/subutai-blueprints/iot-sandbox/raw/master/docs/BP07.png)
 
-![Port mapping tab](docs/BP08.png)
+![Port mapping tab](https://github.com/subutai-blueprints/iot-sandbox/raw/master/docs/BP08.png)
 
 ### 2. Check Grafana
 
-![Access Grafana](docs/BP09.png)
+![Access Grafana](https://github.com/subutai-blueprints/iot-sandbox/raw/master/docs/BP09.png)
 
-![Log in](docs/BP10.png)
+![Log in](https://github.com/subutai-blueprints/iot-sandbox/raw/master/docs/BP10.png)
 
-![Go to the list of dashboards](docs/BP11.png)
+![Go to the list of dashboards](https://github.com/subutai-blueprints/iot-sandbox/raw/master/docs/BP11.png)
 
-![Access the default dashboard](docs/BP12.png)
+![Access the default dashboard](https://github.com/subutai-blueprints/iot-sandbox/raw/master/docs/BP12.png)
 
-![Empty panels](docs/BP13.png)
+![Empty panels](https://github.com/subutai-blueprints/iot-sandbox/raw/master/docs/BP13.png)
 
 Now we will enable the environment to receive data.
 
@@ -46,4 +46,4 @@ Now we will enable the environment to receive data.
 
 ### 4. Start sending data!
 
-![](https://github.com/subutai-blueprints/iot-sandbox/raw/master/docs/BP16.png)
+![Populated dashboard](https://github.com/subutai-blueprints/iot-sandbox/raw/master/docs/BP16.png)
