@@ -61,18 +61,8 @@ As there is no data coming in, at first the dashboard will be empty.
 ![Empty panels](https://github.com/subutai-blueprints/iot-sandbox/raw/master/docs/BP-13.png)
 
 
-### 3. Enable the environment to receive data. 
+### 3. Start sending data!
 
-Now we will enable data to be sent to the sandbox via MQTT. Get back to your Environment's page and check the container port mapping tab.
-
-![Add new port](https://github.com/subutai-blueprints/iot-sandbox/raw/master/docs/BP-14.png)
-
-MQTT is listening on port 1883, so you will choose that one as the internal port. You can try the same for the external port, but in case the Peer is already using it you will get an error message and the suggestion to pick another port. You will need another subdomain to send data to. Don't forget to click the checkbox of the container that starts with "iot". 
-
-![Define variables](https://github.com/subutai-blueprints/iot-sandbox/raw/master/docs/BP-15.png)
-
-### 4. Start sending data!
-
-Now you can start sending data from whatever MQTT-enabled device or equipment you have. If you want to send simulated data, please check [this wiki page](https://github.com/subutai-blueprints/iot-sandbox/wiki/Testing-this-BP) about how to use node-red to send random data.
+Now you can start sending data from whatever MQTT-enabled device, equipment or software you use. If you want to send simulated data, please check [this wiki page](https://github.com/subutai-blueprints/iot-sandbox/wiki/Testing-this-BP) about how to use node-red to send random data.
 
 ![Populated dashboard](https://github.com/subutai-blueprints/iot-sandbox/raw/master/docs/BP-16.png)
