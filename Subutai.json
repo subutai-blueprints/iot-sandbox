@@ -15,7 +15,13 @@
                     "domain": "${grafanaDomain}",
                     "internal-port": "3000",
                     "external-port": "80"
-                }
+                },
+                {
+                    "protocol": "tcp",
+                    "domain": "${mqttDomain}",
+                    "internal-port": "1883",
+                    "external-port": "1883"
+				}
             ]
         }
     ],
@@ -73,6 +79,12 @@
             "default": "change.the.domain",
             "validation": "[a-zA-Z0-9]+"
         },
+        "mqttDomain": {
+            "description": "Enter the domain name for mqtt",
+            "type": "domain",
+            "default": "change.the.domain",
+            "validation": "[a-zA-Z0-9]+"
+		},
         "containerSize": {
             "description": "Container Size",
             "type": "enum",
