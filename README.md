@@ -44,7 +44,7 @@ Use your browser to acces the domain name you have chosen.
 
 ![Access Grafana](https://github.com/subutai-blueprints/iot-sandbox/raw/master/docs/BP-09.png)
 
-Log in //using the username "admin"// and the password you defined for grafana before running the Blueprint.
+Log in *using the username "admin"* and the password you defined for grafana before running the Blueprint.
 
 ![Log in](https://github.com/subutai-blueprints/iot-sandbox/raw/master/docs/BP-10.png)
 
