@@ -10,7 +10,7 @@ Data can then be sent from IoT devices via [mqtt](https://en.wikipedia.org/wiki/
 
 ### 1. Run the Blueprint on Subutai
 
-Insert your desired variables: username and password for mqtt; name of the environment; password and domain name for grafana; and size of your container. It is ok to use the default values.
+Insert your desired variables: username, domain name and password for mqtt; name of the environment; password and domain name for grafana; and size of your container. It is ok to use the default values. Don't forget you need to use different domain names for mqtt and grafana.
 
 ![Set your Blueprint variables](https://github.com/subutai-blueprints/iot-sandbox/raw/master/docs/BP-02.png)
 
@@ -44,7 +44,7 @@ Use your browser to acces the domain name you have chosen.
 
 ![Access Grafana](https://github.com/subutai-blueprints/iot-sandbox/raw/master/docs/BP-09.png)
 
-Log in using the username "admin" and the password you defined for grafana.
+Log in *using the username "admin"* and the password you defined for grafana before running the Blueprint.
 
 ![Log in](https://github.com/subutai-blueprints/iot-sandbox/raw/master/docs/BP-10.png)
 
@@ -66,3 +66,12 @@ As there is no data coming in, at first the dashboard will be empty.
 Now you can start sending data from whatever MQTT-enabled device, equipment or software you use. If you want to send simulated data, please check [this wiki page](https://github.com/subutai-blueprints/iot-sandbox/wiki/Testing-this-BP) about how to use node-red to send random data.
 
 ![Populated dashboard](https://github.com/subutai-blueprints/iot-sandbox/raw/master/docs/BP-16.png)
+
+### 5. Do more with IoT sandbox
+
+As with any other BP environment, IoT sandbox can be extended using the power of its open source base: InfluxDB, Telegraf, Grafana - and virtually any other software you can run on its Debian Stretch operating system. You have full admin access to all of those, out of the box. Check some useful resources below:
+
+- [Grafana documentation](http://docs.grafana.org/).
+- [InfluxDB documentation](https://docs.influxdata.com/influxdb/v1.6/).
+- [Telegraf documentation](https://docs.influxdata.com/telegraf/v1.7/).
+- [MQTT documentation](http://mqtt.org/documentation).
