@@ -10,6 +10,10 @@ Data can then be sent from IoT devices via [mqtt](https://en.wikipedia.org/wiki/
 
 ### 1. Run the Blueprint on Subutai
 
+Assuming you have already signed up to the Subutai Bazaar, hop to the [Products](https://bazaar.subutai.io/products) page and click the IoT sandbox Blueprint.
+
+![Click IoT sandbox](https://github.com/subutai-blueprints/iot-sandbox/raw/master/docs/BP-01.png) 
+
 Insert your desired variables: username, domain name and password for mqtt; name of the environment; password and domain name for grafana; and size of your container. It is ok to use the default values. Don't forget you need to use different domain names for mqtt and grafana.
 
 ![Set your Blueprint variables](https://github.com/subutai-blueprints/iot-sandbox/raw/master/docs/BP-02.png)
