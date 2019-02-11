@@ -58,10 +58,10 @@
         id: 684A14CF2582E0C5
         keyserver: keyserver.ubuntu.com
 
-    - name: Install grafana repo key
+    - name: Install grafana repo key 
       apt_key:
-       url: https://packages.grafana.com/gpg.key
-       state: present
+        url: https://packagecloud.io/grafana/stable/gpgkey 
+        state: present
 
     - name: Add influx repo
       apt_repository:
@@ -72,7 +72,7 @@
       apt_repository: 
         repo: deb https://packages.grafana.com/oss/deb stable main
         state: present
-
+  
     - name: Add debian buster
       apt_repository: 
         repo: deb http://httpredir.debian.org/debian/ buster main contrib non-free
