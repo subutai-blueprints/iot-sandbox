@@ -70,7 +70,7 @@
 
     - name: Add grafana repo
       apt_repository: 
-        repo: deb https://packagecloud.io/grafana/stable/debian/ stretch main
+        repo: deb https://packages.grafana.com/oss/deb stable main
         state: present
 
     - name: Add debian buster
