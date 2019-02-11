@@ -78,6 +78,10 @@
         repo: deb http://httpredir.debian.org/debian/ buster main contrib non-free
         state: present
 
+    - name: apt update
+      apt:
+        update_cache: true
+        
     - name: Install required packages
       apt:
         name: "{{ item }}"
