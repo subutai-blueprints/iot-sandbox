@@ -59,9 +59,9 @@
         keyserver: keyserver.ubuntu.com
 
     - name: Install grafana repo key
-      apt_key: 
-        id: 37BBEE3F7AD95B3F
-        keyserver: keyserver.ubuntu.com
+      apt_key:
+       url: https://packages.grafana.com/gpg.key
+       state: present
 
     - name: Add influx repo
       apt_repository:
