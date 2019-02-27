@@ -11,10 +11,11 @@
             "size": "${containerSize}",
             "port-mapping": [
                 {
-                    "protocol": "http",
+                    "protocol": "https",
                     "domain": "${grafanaDomain}",
                     "internal-port": "3000",
-                    "external-port": "80"
+                    "external-port": "443",
+                    "http_redirect": true,
                 },
                 {
                     "protocol": "tcp",
