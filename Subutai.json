@@ -6,7 +6,7 @@
     "containers": [
         {
             "hostname": "iot",
-            "template": "debian-buster",
+            "template": "debian-stretch",
             "peer-criteria": "HTTP-GROUP",
             "size": "${containerSize}",
             "port-mapping": [
