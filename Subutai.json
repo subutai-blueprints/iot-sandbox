@@ -1,20 +1,21 @@
 {
     "name": "${environmentName}",
     "description": "IoT Sandbox",
-    "version": "0.2.3",
+    "version": "0.2.4",
     "author": "https://github.com/subutai-blueprints",
     "containers": [
         {
             "hostname": "iot",
-            "template": "debian-stretch",
+            "template": "debian-buster",
             "peer-criteria": "HTTP-GROUP",
             "size": "${containerSize}",
             "port-mapping": [
                 {
-                    "protocol": "http",
+                    "protocol": "https",
                     "domain": "${grafanaDomain}",
                     "internal-port": "3000",
-                    "external-port": "80"
+                    "external-port": "443",
+                    "http_redirect": true,
                 },
                 {
                     "protocol": "tcp",

@@ -39,19 +39,21 @@
         src: files/preferences
         dest: /etc/apt/preferences
 
-    - name: Install dirmngr
-      apt:
-        name: dirmngr
-        state: present
-
-    - name: Install apt-transport-https
-      apt:
-        name: apt-transport-https
-        state: present
-
     - name: Upgrade old Debian stuff
       apt:
         upgrade: yes
+        
+    - name: Install required debs
+      apt:
+        name: "{{ packages }}"
+        state: present
+      vars: 
+        packages:
+        - dirmngr
+        - ca-certificates
+        - xz-utils
+        - python3-apt
+        - apt-transport-https
 
     - name: Install influxdata repo key
       apt_key: 
